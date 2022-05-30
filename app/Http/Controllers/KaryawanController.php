@@ -17,7 +17,6 @@ class KaryawanController extends Controller
         $this->manyToMany = ['role'];
         $this->relations = ['user'];
         $this->extraFrom = ['user'];
-        $this->oneToMany = ['rekanan'];
         $this->middleware('permission:view-' . $this->route, ['only' => ['index']]);
         $this->middleware('permission:create-' . $this->route, ['only' => ['create', 'store']]);
         $this->middleware('permission:edit-' . $this->route, ['only' => ['edit', 'update']]);
@@ -34,18 +33,6 @@ class KaryawanController extends Controller
             [
                 'name'    => 'nama_jabatan',
                 'alias'    => 'Jabatan',
-            ],
-            [
-                'name'    => 'divisi',
-                'alias'    => 'Divisi',
-            ],
-            [
-                'name'    => 'wilayah',
-                'alias'    => 'Wilayah',
-            ],
-            [
-                'name'    => 'departemen',
-                'alias'    => 'Departemen',
             ],
         ];
     }
@@ -87,30 +74,9 @@ class KaryawanController extends Controller
                 'input'    => 'combo',
                 'alias'    => 'Jabatan',
                 'value' => $this->combobox(
-                    'Jabatan',
-                    null,
-                    null,
-                    null,
-                    'nama',
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    ['divisi', 'wilayah', 'departemen'],
+                    'Jabatan'
                 ),
                 'validasi'    => ['required'],
-            ],
-            [
-                'name'    => 'rekanan_id',
-                'input'    => 'combo',
-                'alias'    => 'Rekanan',
-                'value' => $this->combobox(
-                    'Rekanan'
-                ),
-                'multiple'    =>  true,
             ],
             [
                 'name'    => 'username',
@@ -140,12 +106,6 @@ class KaryawanController extends Controller
                 'validasi'    => ['required'],
                 'extraForm' => 'user',
                 'hasMany'    => ['role'],
-            ],
-            [
-                'name'    => 'tdd',
-                'input'    => 'image',
-                'alias'    => 'Tanda Tangan',
-                'validasi'    => ['mimes:jpeg,bmp,png,jpg'],
             ],
         ];
     }

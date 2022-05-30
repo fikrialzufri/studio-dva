@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Login | PDAM SAMARINDA</title>
+    <title>Login | STUDIO SENAM DVA NLY</title>
     <meta name="description" content="">
-    <meta name="keywords" content="PDAM SAMARINDA">
+    <meta name="keywords" content="STUDIO SENAM DVA NLY">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/x-icon" />
@@ -29,7 +29,7 @@
 
         .bg {
             /* The image used */
-            background-image: url("img/PDAM-BG.jpg");
+            background-image: url("img/bg.jpg");
 
             /* Full height */
             height: 100%;
@@ -54,8 +54,8 @@
                 <div class="col-xl-4 col-lg-4 col-md-4 m-auto">
                     <div class="authentication-form mx-auto">
                         <div class="logo-centered">
-                            <a href="http://radmin.rakibhstu.com"><img height="100" src="{{ asset('img/logo.png') }}"
-                                    alt="RADMIN"></a>
+                            <a href="#"><img width="80%" src="{{ asset('img/logo.png') }}"
+                                    alt="STUDIO SENAM DVA NLY"></a>
                         </div>
                         <p>Welcome back! </p>
                         <form method="POST" action="{{ route('login') }}">

@@ -48,41 +48,46 @@
 @endpush
 
 @push('script')
-    <script script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"> </script>
+    {{-- <script script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script> --}}
     <script>
         @if (isset($item['input']))
             @if ($item['input'] == 'combo')
                 $(function() {
-                var cmbName = `#cmb{{ $item['name'] }}`;
-                var aliasName = `{{ $item['alias'] }}`;
-                $(cmbName).select2({
-                placeholder: '--- Pilih ' + aliasName + ' ---',
-                width: '100%'
-                });
+                    var cmbName = `#cmb{{ $item['name'] }}`;
+                    var aliasName = `{{ $item['alias'] }}`;
+                    $(cmbName).select2({
+                        placeholder: '--- Pilih ' + aliasName + ' ---',
+                        width: '100%'
+                    });
 
                 });
             @endif
         @endif
     </script>
-    @if ($item['input'] == 'daterange')
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-        @if (!$hasilSearch[$item['name']])
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    let start = moment().startOf('month')
-                    let end = moment().endOf('month')
-                    $('#daterange').daterangepicker({
-                        startDate: start,
-                        endDate: end,
+@endpush
+
+@push('scriptdinamis')
+    @if (isset($item['input']))
+        @if ($item['input'] == 'daterange')
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+            @if (!$hasilSearch[$item['name']])
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        let start = moment().startOf('month')
+                        let end = moment().endOf('month')
+                        $('#daterange').daterangepicker({
+                            startDate: start,
+                            endDate: end,
+                        })
                     })
-                })
-            </script>
-        @else
-            <script type="text/javascript">
-                $('#daterange').daterangepicker()
-            </script>
+                </script>
+            @else
+                <script type="text/javascript">
+                    $('#daterange').daterangepicker()
+                </script>
+            @endif
         @endif
     @endif
+
 @endpush

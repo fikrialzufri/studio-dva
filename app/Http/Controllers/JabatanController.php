@@ -58,20 +58,6 @@ class JabatanController extends Controller
                 'alias'    => 'Nama Jabatan',
                 'validasi'    => ['required', 'min:1'],
             ],
-            [
-                'name'    => 'divisi_id',
-                'input'    => 'combo',
-                'alias'    => 'Divisi',
-                'value' => $this->combobox('Divisi'),
-                'validasi'    => ['required'],
-            ],
-            [
-                'name'    => 'wilayah_id',
-                'input'    => 'combo',
-                'alias'    => 'Wilayah',
-                'value' => $this->combobox('Wilayah'),
-                'validasi'    => ['required'],
-            ],
         ];
     }
 

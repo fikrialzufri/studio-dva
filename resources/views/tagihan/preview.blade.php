@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ $title }} | PDAM SAMARINDA</title>
+    <title>{{ $title }} | STUDIO SENAM DVA NLY</title>
     <meta name="description" content="">
-    <meta name="keywords" content="PDAM SAMARINDA">
+    <meta name="keywords" content="STUDIO SENAM DVA NLY">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/x-icon" />
