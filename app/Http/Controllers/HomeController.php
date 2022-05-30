@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aduan;
+use App\Models\Anggota;
 use App\Models\PelaksanaanPekerjaan;
+use App\Models\Pembayaran;
 use App\Models\Rekanan;
 use Auth;
 use Carbon\Carbon;
@@ -47,18 +49,15 @@ class HomeController extends Controller
         //     ->orderBy('tahun', 'desc')
         //     ->get();
 
-        $aduanCount = 1;
-        $pekerjaanCount = 1;
-        $rekananCount = 1;
+        $anggota = Anggota::count();
+        $pembayaran = Pembayaran::sum('total_bayar');
 
         return view('home.index', compact(
             'title',
             'pegawai',
-            'pekerjaanCount',
             'aduanPerbulanGrafik',
-            'rekananCount',
             'anggota',
-            'aduanCount',
+            'pembayaran',
             'rapat',
             'jenisRapat'
         ));
