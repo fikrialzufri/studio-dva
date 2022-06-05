@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Anggota;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Str;
+use Symfony\Component\HttpFoundation\Request;
 
 class RegisterController extends Controller
 {
@@ -50,24 +53,37 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'nama' => ['required', 'string', 'max:255'],
+            'nik' => ['required', 'string', 'min:11', 'max:255', 'unique:anggota'],
+            'no_hp' => ['required', 'string', 'min:11', 'max:255', 'unique:anggota'],
+            'alamat' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+            'password_confrim' => 'required|same:password|min:8',
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
+    public function register(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $this->validator($request->all())->validate();
+
+        $user = new User;
+        $user->name = $request->nama;
+        $user->username = $request->username;
+        $user->slug = Str::slug($request->username);
+        $user->email = request()->input('email');
+        $user->password =  Hash::make($request->password);
+        $user->save();
+
+        $Anggota = new Anggota;
+        $Anggota->nama = $request->nama;
+        $Anggota->nik = $request->nik;
+        $Anggota->alamat = $request->alamat;
+        $Anggota->no_hp = $request->no_hp;
+        $Anggota->user_id = $user->id;
+        $Anggota->save();
+
+        return redirect($this->redirectPath())->with('message', 'Pendaftaran Berhasil, mohon login kembali');
     }
 }

@@ -37,18 +37,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-12 col-xl-12">
-                <div class="card sale-card">
-                    <div class="card-header">
-                        <h3>Daftar Aduan Tahun ini</h3>
-                    </div>
-                    <div class="card-block text-center">
-                        <div id="line_chart" class="chart-shadow"></div>
-                    </div>
-
-                </div>
-            </div>
         </div>
     </div>
 @stop

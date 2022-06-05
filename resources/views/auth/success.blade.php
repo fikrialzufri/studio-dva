@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Login | STUDIO SENAM DVA NLY</title>
+    <title>Register | STUDIO SENAM DVA NLY</title>
     <meta name="description" content="">
     <meta name="keywords" content="STUDIO SENAM DVA NLY">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,7 +57,6 @@
                             <a href="#"><img width="80%" src="{{ asset('img/logo.png') }}"
                                     alt="STUDIO SENAM DVA NLY"></a>
                         </div>
-                        <p>Selamat datang </p>
                         @if (session('message'))
                             <div class="row" id="#success-alert">
                                 <div class=" container-fluid alert alert-{{ session('Class') }} alert-dismissible fade show"
@@ -70,39 +69,7 @@
                                 </div>
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-                            <div class="form-group">
-                                <input id="username" type="text" placeholder="username"
-                                    class="form-control @error('username') is-invalid @enderror" name="username"
-                                    value="{{ old('username') }}" required autocomplete="username" autofocus>
-                                <i class="ik ik-user"></i>
-                                @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <input id="password" type="password" placeholder="Password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required>
-                                <i class="ik ik-lock"></i>
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="sign-btn text-center">
-                                <button class="btn btn-custom">Sign In</button>
-                            </div>
-                            <br>
-                            <div class="text-center">
-                                <a href="{{ route('register') }}">Belum Punya Akun</a>
-                            </div>
-                        </form>
+                        <a href="{{ route('login') }}" class="btn btn-success btn-fw">Kembali login</a>
                     </div>
                 </div>
             </div>
@@ -114,28 +81,6 @@
     <script src="{{ asset('plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('plugins/screenfull/dist/screenfull.js') }}"></script>
-    {{-- Firebase --}}
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import {
-            initializeApp
-        } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAiIdOVXPc1C90tWcDrpG984rzidIgU9Kk",
-            authDomain: "pdam-work-order.firebaseapp.com",
-            projectId: "pdam-work-order",
-            storageBucket: "pdam-work-order.appspot.com",
-            messagingSenderId: "167105139450",
-            appId: "1:167105139450:web:cf92428440b90382686f43"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-    </script>
 </body>
 
 </html>

@@ -26,14 +26,6 @@ class JabatanController extends Controller
             [
                 'name'    => 'nama',
                 'alias'    => 'Nama Jabatan',
-            ],
-            [
-                'name'    => 'divisi',
-                'alias'    => 'Divisi',
-            ],
-            [
-                'name'    => 'wilayah',
-                'alias'    => 'Nama Wilayah',
             ]
         ];
     }

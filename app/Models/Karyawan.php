@@ -48,37 +48,4 @@ class Karyawan extends Model
             return $this->hasJabatan->nama;
         }
     }
-
-    public function getWilayahAttribute()
-    {
-        if ($this->hasJabatan) {
-            return $this->hasJabatan->wilayah;
-        }
-    }
-
-    public function getIdWilayahAttribute()
-    {
-        if ($this->hasJabatan) {
-            return $this->hasJabatan->id_wilayah;
-        }
-    }
-
-    public function getDivisiAttribute()
-    {
-        if ($this->hasJabatan) {
-            return $this->hasJabatan->divisi;
-        }
-    }
-
-    public function getDepartemenAttribute()
-    {
-        if ($this->hasJabatan) {
-            return $this->hasJabatan->departemen;
-        }
-    }
-
-    public function hasRekanan()
-    {
-        return $this->belongsToMany(Rekanan::class, 'karyawan_rekanan')->withTimestamps();
-    }
 }
