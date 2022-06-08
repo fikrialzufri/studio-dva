@@ -65,7 +65,7 @@ class HomeController extends Controller
         $tahun = Carbon::now()->formatLocalized("%Y");
 
         $PembayaranSetahun =  Pembayaran::selectRaw('year(created_at) as tahun, bulan, count(*) as jumlah, anggota_id')
-            ->whereYear('created_at', $tahun);
+            ->whereYear('created_at', $tahun)->whereAktif('aktif');
 
         if (Auth::user()->hasRole('anggota')) {
             $PembayaranSetahun = $PembayaranSetahun->where('anggota_id', $anggota_id);

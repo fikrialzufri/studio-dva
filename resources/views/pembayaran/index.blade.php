@@ -103,18 +103,18 @@
                                                         data-placement="top" title="Aktif" onclick=ubah("{{ $item->id }}")>
                                                         <i class="fa fa-edit"></i> Aktif
                                                     </button>
+                                                    <form id="form-{{ $item->id }}"
+                                                        action="{{ route($route . '.destroy', $item->id) }}" method="POST"
+                                                        style="display: none;">
+                                                        {{ csrf_field() }}
+                                                        {{ method_field('DELETE') }}
+                                                    </form>
+                                                    <button class="btn btn-danger btn-sm" data-toggle="tooltip"
+                                                        data-placement="top" title="Hapus"
+                                                        onclick=deleteconf("{{ $item->id }}")>
+                                                        <i class="fa fa-trash"></i> Hapus
+                                                    </button>
                                                 @endrole
-                                                <form id="form-{{ $item->id }}"
-                                                    action="{{ route($route . '.destroy', $item->id) }}" method="POST"
-                                                    style="display: none;">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-                                                </form>
-                                                <button class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                                    data-placement="top" title="Hapus"
-                                                    onclick=deleteconf("{{ $item->id }}")>
-                                                    <i class="fa fa-trash"></i> Hapus
-                                                </button>
                                             @endif
                                         </td>
                                     </tr>
