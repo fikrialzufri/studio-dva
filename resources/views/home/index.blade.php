@@ -61,7 +61,8 @@
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $pem->nama }}</td>
                                             <td>{{ $pem->bulan }}</td>
-                                            <td>{{ tanggal_indonesi($pem->created_at) }}</td>
+                                            <td>{{ isset($pem->created_at) ? tanggal_indonesia($pem->created_at) : '' }}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
