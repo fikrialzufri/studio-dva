@@ -29,4 +29,11 @@ class Pembayaran extends Model
     {
         return $this->belongsTo(Anggota::class, 'anggota_id');
     }
+
+    public function getNamaAttribute()
+    {
+        if ($this->hasAnggota) {
+            return $this->hasAnggota->nama;
+        }
+    }
 }

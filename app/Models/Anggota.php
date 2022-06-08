@@ -13,9 +13,9 @@ class Anggota extends Model
     protected $table = "anggota";
     protected $append = "email";
 
-    public function setNamaAttribute($value)
+    public function setNoAnggotaAttribute($value)
     {
-        $this->attributes['nama'] = $value;
+        $this->attributes['no_anggota'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }
 

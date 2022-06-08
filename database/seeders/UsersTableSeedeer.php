@@ -25,6 +25,10 @@ class UsersTableSeedeer extends Seeder
         $AnggotaRole->name = 'Anggota';
         $AnggotaRole->save();
 
+        $AdminRole = new Role();
+        $AdminRole->name = 'Admin';
+        $AdminRole->save();
+
         $superadmin = Role::where('slug', 'superadmin')->first();
 
         $superadminUser = new User();
@@ -36,6 +40,16 @@ class UsersTableSeedeer extends Seeder
         $superadminUser->save();
 
         $superadminUser->role()->attach($superadmin);
+
+        $adminUser = new User();
+        $adminUser->name = 'admin';
+        $adminUser->username = 'admin';
+        $adminUser->email = 'admin@admin.com';
+        $adminUser->password = bcrypt('admin');
+        // $adminUser->icon = 'default-icon.png';
+        $adminUser->save();
+
+        $adminUser->role()->attach($AdminRole);
 
         $taskUser = new Task();
         $taskUser->name = 'User';

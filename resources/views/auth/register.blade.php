@@ -39,7 +39,6 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
-
     </style>
 </head>
 
@@ -57,6 +56,18 @@
                             <a href="#"><img width="80%" src="{{ asset('img/logo.png') }}"
                                     alt="STUDIO SENAM DVA NLY"></a>
                         </div>
+                        @if (session('message'))
+                            <div class="row" id="#success-alert">
+                                <div class=" container-fluid alert alert-{{ session('Class') }} alert-dismissible fade show"
+                                    role="alert">
+                                    {{ session('message') }}
+                                    <button type="button" class="close" data-dismiss="alert"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        @endif
                         <p>Silahkan daftar disini! </p>
                         <form method="POST" action="{{ route('register') }}">
                             @csrf

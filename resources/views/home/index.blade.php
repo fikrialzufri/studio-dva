@@ -3,41 +3,98 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <!-- page statustic chart start -->
-            <div class="col-xl-6 col-md-6">
-                <div class="card card-red text-white">
-                    <div class="card-block">
-                        <div class="row align-items-center">
-                            <div class="col-8">
-                                <h4 class="mb-0">{{ __($anggota) }}</h4>
-                                <p class="mb-0">{{ __('Anggota') }}</p>
+        @if (!Auth::user()->hasRole('anggota'))
+            <div class="row">
+                <!-- page statustic chart start -->
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-red text-white">
+                        <div class="card-block">
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <h4 class="mb-0">{{ __($anggota) }}</h4>
+                                    <p class="mb-0">{{ __('Anggota') }}</p>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <i class="fas fa-cube f-30"></i>
+                                </div>
                             </div>
-                            <div class="col-4 text-right">
-                                <i class="fas fa-cube f-30"></i>
-                            </div>
+                            <div id="Widget-line-chart1" class="chart-line chart-shadow"></div>
                         </div>
-                        <div id="Widget-line-chart1" class="chart-line chart-shadow"></div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-blue text-white">
+                        <div class="card-block">
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <h4 class="mb-0">{{ __('Rp. ' . format_uang($pembayaranSum)) }}</h4>
+                                    <p class="mb-0">{{ __('Pembayaran') }}</p>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <i class="ik ik-shopping-cart f-30"></i>
+                                </div>
+                            </div>
+                            <div id="Widget-line-chart2" class="chart-line chart-shadow"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 col-md-6">
-                <div class="card card-blue text-white">
-                    <div class="card-block">
-                        <div class="row align-items-center">
-                            <div class="col-8">
-                                <h4 class="mb-0">{{ __('Rp. ' . format_uang($pembayaran)) }}</h4>
-                                <p class="mb-0">{{ __('Pembayaran') }}</p>
-                            </div>
-                            <div class="col-4 text-right">
-                                <i class="ik ik-shopping-cart f-30"></i>
-                            </div>
+            <div class="row">
+                <div class="card">
+                    <div class="card-header">
+                        <span>Daftar Pembayaran Terakhir</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-12">
+                            <table class="table table-bordered " id="example">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Bulan</th>
+                                        <th class="text-center">Tanggal Bayar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($listPembayaran as $index => $pem)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $pem->nama }}</td>
+                                            <td>{{ $pem->bulan }}</td>
+                                            <td>{{ tanggal_indonesi($pem->created_at) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
                         </div>
-                        <div id="Widget-line-chart2" class="chart-line chart-shadow"></div>
                     </div>
                 </div>
             </div>
-        </div>
+        @else
+            <div class="row">
+                @foreach ($PembayaranPerbulan as $item)
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="widget {{ $item['jumlah'] > 0 ? 'bg-primary' : 'bg-danger' }}">
+                            <div class="widget-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="state">
+                                        <h6>Bulan {{ $item['bulan'] }}</h6>
+                                        <h2>{{ $item['jumlah'] > 0 ? 'Sudah Bayar' : 'belum bayar' }}</h2>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ik ik-file-text"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
+
     </div>
 @stop
 
@@ -72,7 +129,6 @@
             vertical-align: middle;
             top: 50%;
         }
-
     </style>
 @endpush
 @push('script')

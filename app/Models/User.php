@@ -65,17 +65,9 @@ class User extends Authenticatable
         }
     }
 
-
-    public function hasRekanan()
+    public function hasAnggota()
     {
-        return $this->hasOne(Rekanan::class, 'user_id');
-    }
-
-    public function getIdRekananAttribute()
-    {
-        if ($this->hasRekanan) {
-            return $this->hasRekanan->id;
-        }
+        return $this->hasOne(Anggota::class, 'user_id');
     }
 
     public function getIdKaryawanAttribute()
@@ -84,13 +76,10 @@ class User extends Authenticatable
             return $this->karyawan->id;
         }
     }
-
-    public function getKaryawanListRekananAttribute()
+    public function getIdAnggotaAttribute()
     {
-        if ($this->karyawan) {
-            if ($this->karyawan->hasRekanan) {
-                return $this->karyawan->hasRekanan->pluck('id');
-            }
+        if ($this->hasAnggota) {
+            return $this->hasAnggota->id;
         }
     }
 }

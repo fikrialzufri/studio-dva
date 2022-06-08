@@ -47,9 +47,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     // anggota
     Route::resource('anggota', AnggotaController::class);
+    Route::put('anggota-aktif/{id}', [AnggotaController::class, 'aktif'])->name('anggota.aktif');
 
     // pembayaran
     Route::resource('pembayaran', PembayaranController::class);
+    Route::put('pembayaran-aktif/{id}', [PembayaranController::class, 'aktif'])->name('pembayaran.aktif');
 
     // Setting
     Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');

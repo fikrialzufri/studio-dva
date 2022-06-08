@@ -15,8 +15,14 @@ class CreatePembayaransTable extends Migration
     {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('no_pembayaran');
             $table->bigInteger('total_bayar')->default(0);
-            $table->integer('bulan')->default(0);
+            $table->string('bulan')->nullable();
+            $table->string('bukti_bayar')->nullable();
+            $table->enum('aktif', [
+                'aktif',
+                'non-aktif',
+            ])->default('non-aktif');
             $table->foreignUuid('anggota_id')->nullable()->references('id')->on('anggota')->onDelete('cascade');
             $table->timestamps();
         });

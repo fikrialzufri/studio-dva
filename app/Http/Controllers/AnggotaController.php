@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anggota;
+use App\Models\Role;
+use App\Models\User;
 use App\Traits\CrudTrait;
 
 class AnggotaController extends Controller
@@ -12,6 +14,7 @@ class AnggotaController extends Controller
     public function __construct()
     {
         $this->route = 'anggota';
+        $this->index = 'anggota';
         $this->sort = 'nama';
         $this->plural = 'true';
         $this->upload = 'true';
@@ -42,6 +45,10 @@ class AnggotaController extends Controller
             [
                 'name'    => 'alamat',
                 'alias'    => 'Alamat',
+            ],
+            [
+                'name'    => 'aktif',
+                'alias'    => 'aktif',
             ],
         ];
     }
@@ -119,5 +126,46 @@ class AnggotaController extends Controller
     public function model()
     {
         return new Anggota();
+    }
+
+    public function aktif($id)
+    {
+        $dataAnggota = Anggota::count();
+        if ($dataAnggota >= 1) {
+            $no = str_pad($dataAnggota + 1, 4, "0", STR_PAD_LEFT);
+            $noAnggota =  $no . "/" . "DVA-AGT/" . date('Y')  . "/" . date('d') . "/" . date('m') . "/" . rand(0, 900);
+        } else {
+            $no = str_pad(1, 4, "0", STR_PAD_LEFT);
+            $noAnggota =  $no . "/" . "DVA-AGT/" . date('Y')  . "/" . date('d') . "/" . date('m') . "/" . rand(0, 900);
+        }
+
+        $Anggota = Anggota::find($id);
+        $Anggota->no_anggota = $noAnggota;
+        $Anggota->aktif = "aktif";
+        $Anggota->save();
+
+        $role = Role::whereSlug('anggota')->first();
+
+        $user = User::find($Anggota->user_id);
+        $user->role()->sync($role);
+
+        return redirect()->route('anggota.index')->with('message', 'anggota berhasil diaktifkan')->with('Class', 'success');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $anggota = Anggota::find($id);
+        $anggota->delete();
+
+        $user = User::find($anggota->user_id);
+        $user->delete();
+
+        return redirect()->route('anggota.index')->with('message', 'Anggota berhasil dihapus');
     }
 }

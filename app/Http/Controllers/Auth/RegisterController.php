@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Anggota;
+use App\Models\Pendaftaran;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Str;
+use DB;
 use Symfony\Component\HttpFoundation\Request;
 
 class RegisterController extends Controller
@@ -68,22 +70,45 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        $user = new User;
-        $user->name = $request->nama;
-        $user->username = $request->username;
-        $user->slug = Str::slug($request->username);
-        $user->email = request()->input('email');
-        $user->password =  Hash::make($request->password);
-        $user->save();
+        DB::beginTransaction();
+        try {
+            DB::commit();
+            $user = new User;
+            $user->name = $request->nama;
+            $user->username = $request->username;
+            $user->slug = Str::slug($request->username);
+            $user->email = request()->input('email');
+            $user->password =  Hash::make($request->password);
+            $user->save();
 
-        $Anggota = new Anggota;
-        $Anggota->nama = $request->nama;
-        $Anggota->nik = $request->nik;
-        $Anggota->alamat = $request->alamat;
-        $Anggota->no_hp = $request->no_hp;
-        $Anggota->user_id = $user->id;
-        $Anggota->save();
+            $Anggota = new Anggota;
+            $Anggota->nama = $request->nama;
+            $Anggota->nik = $request->nik;
+            $Anggota->alamat = $request->alamat;
+            $Anggota->no_hp = $request->no_hp;
+            $Anggota->user_id = $user->id;
+            $Anggota->save();
 
-        return redirect($this->redirectPath())->with('message', 'Pendaftaran Berhasil, mohon login kembali');
+            $dataPendaftaran = Pendaftaran::count();
+            if ($dataPendaftaran >= 1) {
+                $no = str_pad($dataPendaftaran + 1, 4, "0", STR_PAD_LEFT);
+                $noPendaftaran =  $no . "/" . "DVA-PEN/" . date('Y')  . "/" . date('d') . "/" . date('m') . "/" . rand(0, 900);
+            } else {
+                $no = str_pad(1, 4, "0", STR_PAD_LEFT);
+                $noPendaftaran =  $no . "/" . "DVA-PEN/" . date('Y')  . "/" . date('d') . "/" . date('m') . "/" . rand(0, 900);
+            }
+            $Pendaftaran = new Pendaftaran;
+            $Pendaftaran->no_pendaftaran = $noPendaftaran;
+            $Pendaftaran->anggota_id = $Anggota->id;
+            $Pendaftaran->save();
+
+            return redirect()->route('login')->with('message', 'Pendaftran berhasil')->with('Class', 'primary');
+        } catch (\Throwable $th) {
+            DB::rollback();
+
+            $user = User::find($user->id);
+            $user->delete();
+            return redirect()->back()->with('message', 'pendaftaran gagal')->with('Class', 'danger');
+        }
     }
 }

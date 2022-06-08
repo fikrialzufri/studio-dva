@@ -39,7 +39,6 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
-
     </style>
 </head>
 
@@ -57,7 +56,7 @@
                             <a href="#"><img width="80%" src="{{ asset('img/logo.png') }}"
                                     alt="STUDIO SENAM DVA NLY"></a>
                         </div>
-                        <p>Selamat datang </p>
+
                         @if (session('message'))
                             <div class="row" id="#success-alert">
                                 <div class=" container-fluid alert alert-{{ session('Class') }} alert-dismissible fade show"
@@ -70,6 +69,7 @@
                                 </div>
                             </div>
                         @endif
+                        <p>Selamat datang </p>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="form-group">
