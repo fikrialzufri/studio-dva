@@ -24,7 +24,7 @@
                         <span>{{ __('Dashboard') }}</span>
                     </a>
                 </div>
-                @canany(['view-karyawan', 'view-jabatan', 'view-divisi', 'view-wilayah', 'view-departemen'])
+                @canany(['view-karyawan', 'view-jabatan'])
                     <div class="nav-lavel">{{ __('Karyawan') }} </div>
                     <div
                         class="nav-item {{ $segment1 == 'jabatan' || $segment1 == 'karyawan' || $segment1 == 'divisi' || $segment1 == 'wilayah' || $segment1 == 'departemen' || $segment1 == 'divisi' ? 'active open' : '' }} has-sub">

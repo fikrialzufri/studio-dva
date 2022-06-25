@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Storage;
 use Str;
+use DB;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
 
@@ -54,7 +55,11 @@ class PembayaranController extends Controller
     }
     public function configSearch()
     {
+        $month = [];
 
+        for ($m = 1; $m <= 12; $m++) {
+            $month[] = bulan_indonesia(date('Y-m-d', mktime(0, 0, 0, $m, 1, date('Y'))));
+        }
         if (!auth()->user()->hasRole('anggota')) {
             return [
                 [
@@ -66,6 +71,12 @@ class PembayaranController extends Controller
                     )
                 ],
                 [
+                    'name'    => 'bulan',
+                    'input'    => 'combo',
+                    'alias'    => 'Bulan',
+                    'value' => $month,
+                ],
+                [
                     'name'    => 'created_at',
                     'input'    => 'daterange',
                     'alias'    => 'Tanggal',
@@ -73,6 +84,12 @@ class PembayaranController extends Controller
             ];
         } else {
             return [
+                [
+                    'name'    => 'bulan',
+                    'input'    => 'combo',
+                    'alias'    => 'Bulan',
+                    'value' => $month,
+                ],
                 [
                     'name'    => 'created_at',
                     'input'    => 'daterange',
@@ -389,7 +406,7 @@ class PembayaranController extends Controller
         $total_bayar = str_replace(".", "", $request->total_bayar);
         $bulan = $request->bulan;
         $bukti_bayar = $request->bukti_bayar;
-        if ($total_bayar  < 250000 || $total_bayar  > 250000) {
+        if ($total_bayar  < 130000 || $total_bayar  > 130000) {
             return redirect()->back()->with('message', 'Maaf pembayaran anda kurang')->with('Class', 'danger');;
         }
 

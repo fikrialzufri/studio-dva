@@ -100,7 +100,8 @@
                                                         {{ method_field('PUT') }}
                                                     </form>
                                                     <button class="btn btn-primary btn-sm" data-toggle="tooltip"
-                                                        data-placement="top" title="Aktif" onclick=ubah("{{ $item->id }}")>
+                                                        data-placement="top" title="Aktif"
+                                                        onclick=ubah("{{ $item->id }}")>
                                                         <i class="fa fa-edit"></i> Aktif
                                                     </button>
                                                     <form id="form-{{ $item->id }}"
@@ -158,7 +159,7 @@
 
             swalWithBootstrapButtons({
                 title: "Anda Yakin ?",
-                text: "Mengaktifkan anggota ini ",
+                text: "Mengkonfirmasi pembayaran anggota ini ",
                 type: "question",
                 showCancelButton: true,
                 confirmButtonText: "Ya, Yakin!",
@@ -167,7 +168,7 @@
                 if (result.value) {
                     swalWithBootstrapButtons(
                         "question!",
-                        "Mohon berhati-hati untuk Mengaktifkan anggota",
+                        "Mohon berhati-hati untuk mengkonfirmasi pembayaran anggota",
                         "question"
                     );
                     document.getElementById("formAktif-" + id).submit();

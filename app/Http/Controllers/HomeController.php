@@ -67,7 +67,7 @@ class HomeController extends Controller
         $PembayaranSetahun =  Pembayaran::selectRaw('year(created_at) as tahun, bulan, count(*) as jumlah, anggota_id')
             ->whereYear('created_at', $tahun)->whereAktif('aktif');
 
-        if (Auth::user()->hasRole('anggota')) {
+        if (!Auth::user()->hasRole('admin') || !Auth::user()->hasRole('superadmin') || !Auth::user()->hasRole('staf')) {
             $PembayaranSetahun = $PembayaranSetahun->where('anggota_id', $anggota_id);
         }
         $PembayaranSetahun = $PembayaranSetahun->groupBy('tahun', 'bulan')

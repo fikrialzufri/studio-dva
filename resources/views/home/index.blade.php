@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container-fluid">
-        @if (!Auth::user()->hasRole('anggota'))
+        @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('staf'))
             <div class="row">
                 <!-- page statustic chart start -->
                 <div class="col-xl-6 col-md-6">
