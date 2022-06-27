@@ -62,8 +62,7 @@
                                 <div class=" container-fluid alert alert-{{ session('Class') }} alert-dismissible fade show"
                                     role="alert">
                                     {{ session('message') }}
-                                    <button type="button" class="close" data-dismiss="alert"
-                                        aria-label="Close">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -126,9 +125,9 @@
         // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAiIdOVXPc1C90tWcDrpG984rzidIgU9Kk",
-            authDomain: "pdam-work-order.firebaseapp.com",
-            projectId: "pdam-work-order",
-            storageBucket: "pdam-work-order.appspot.com",
+            authDomain: "Studi Dva-work-order.firebaseapp.com",
+            projectId: "Studi Dva-work-order",
+            storageBucket: "Studi Dva-work-order.appspot.com",
             messagingSenderId: "167105139450",
             appId: "1:167105139450:web:cf92428440b90382686f43"
         };

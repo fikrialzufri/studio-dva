@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Absensi | PDAM</title>
+    <title>Absensi | Studi Dva</title>
     <meta name="description" content="">
-    <meta name="keywords" content="PDAM">
+    <meta name="keywords" content="Studi Dva">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/x-icon" />
@@ -38,7 +38,6 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
-
     </style>
 </head>
 
@@ -58,7 +57,7 @@
                         <img src="data:image/png;base64, {!! base64_encode(
     QrCode::format('png')->size(300)->generate(route('absensi.store')),
 ) !!} " class="img-square">
-                        {{-- <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(300)->generate(env('APP_URL').'/PDAM/public/absensi-store'),) !!} " class="img-square"> --}}
+                        {{-- <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(300)->generate(env('APP_URL').'/Studi Dva/public/absensi-store'),) !!} " class="img-square"> --}}
                     </div>
                 </div>
             </div>

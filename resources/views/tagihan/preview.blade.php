@@ -29,7 +29,7 @@
 
         .bg {
             /* The image used */
-            background-image: url("img/PDAM-BG.jpg");
+            background-image: url("img/Studi Dva-BG.jpg");
 
             /* Full height */
             height: 100%;
@@ -39,7 +39,6 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
-
     </style>
 </head>
 
@@ -244,9 +243,9 @@
         // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAiIdOVXPc1C90tWcDrpG984rzidIgU9Kk",
-            authDomain: "pdam-work-order.firebaseapp.com",
-            projectId: "pdam-work-order",
-            storageBucket: "pdam-work-order.appspot.com",
+            authDomain: "Studi Dva-work-order.firebaseapp.com",
+            projectId: "Studi Dva-work-order",
+            storageBucket: "Studi Dva-work-order.appspot.com",
             messagingSenderId: "167105139450",
             appId: "1:167105139450:web:cf92428440b90382686f43"
         };
