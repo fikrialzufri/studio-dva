@@ -21,6 +21,8 @@ class CreateKaryawansTable extends Migration
             $table->string('slug');
             $table->foreignUuid('jabatan_id')->references('id')->on('jabatan');
             $table->foreignUuid('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

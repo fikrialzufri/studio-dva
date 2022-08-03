@@ -17,6 +17,8 @@ class CreateJabatansTable extends Migration
             $table->uuid('id')->primary();
             $table->string('nama');
             $table->string('slug');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

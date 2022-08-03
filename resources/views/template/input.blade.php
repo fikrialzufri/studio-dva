@@ -121,6 +121,7 @@
 
         <br>
         <div class="preview"></div>
+        <span class="text-danger">Kirim ke rekening Mandiri 146031313713 an. Studi Dva</span>
         @if ($store == 'update')
             <img class="img-profile img-responsive" width="20%"
                 @if ($data[$item['name']] == null) src="{{ asset('img/default-icon.png') }}"
@@ -135,7 +136,11 @@
 </textarea>
     @endif
 
-    @if ($item['input'] == 'text' || $item['input'] == 'number' || $item['input'] == 'email' || $item['input'] == 'password' || $item['input'] == 'time')
+    @if ($item['input'] == 'text' ||
+        $item['input'] == 'number' ||
+        $item['input'] == 'email' ||
+        $item['input'] == 'password' ||
+        $item['input'] == 'time')
         <div>
             <input type="{{ $item['input'] }}" name="{{ $item['name'] }}" id="{{ $item['name'] }}"
                 @if ($item['input'] == 'password') autocomplete="on" @else placeholder="{{ $item['alias'] }}" @endif

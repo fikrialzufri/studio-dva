@@ -126,6 +126,12 @@
                                     </tr>
                                 @endforelse
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2">Total Pembayaran</th>
+                                    <th>Rp. {{ format_uang($data->sum('total_bayar')) }}</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     <!-- /.card-body -->

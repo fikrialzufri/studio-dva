@@ -6,10 +6,11 @@ use App\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Anggota extends Model
 {
-    use HasFactory, UsesUuid;
+    use HasFactory, UsesUuid, SoftDeletes;
     protected $table = "anggota";
     protected $append = "email";
 

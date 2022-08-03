@@ -27,6 +27,8 @@ class CreateAnggotasTable extends Migration
             ])->default('non-aktif');
             $table->longText('alamat');
             $table->foreignUuid('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

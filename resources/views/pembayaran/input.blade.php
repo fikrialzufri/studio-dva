@@ -6,8 +6,7 @@
 
     @if (!isset($item['input']))
         <input type="text" name="{{ $item['name'] }}" readonly id="{{ $item['name'] }}"
-            placeholder="{{ $item['alias'] }}"
-            class="form-control {{ $errors->has($item['name']) ? 'is-invalid' : '' }}"
+            placeholder="{{ $item['alias'] }}" class="form-control {{ $errors->has($item['name']) ? 'is-invalid' : '' }}"
             @if ($store == 'update') value="{{ $data[$item['name']] }}" @else value="{{ old($item['name']) }}" @endif>
     @else
         @if ($item['input'] == 'combo')
@@ -121,6 +120,8 @@
             @if ($data[$item['name']] == null) src=""
                     @else
                     src="{{ asset('storage/' . $route . '/' . $data[$item['name']]) }}" @endif>
+
+
     @endif
     @if ($item['input'] == 'textarea')
         <textarea class="form-control" rows="3" placeholder="{{ $item['alias'] }}" name="{{ $item['name'] }}" readonly>
@@ -128,7 +129,11 @@
 </textarea>
     @endif
 
-    @if ($item['input'] == 'text' || $item['input'] == 'number' || $item['input'] == 'email' || $item['input'] == 'password' || $item['input'] == 'time')
+    @if ($item['input'] == 'text' ||
+        $item['input'] == 'number' ||
+        $item['input'] == 'email' ||
+        $item['input'] == 'password' ||
+        $item['input'] == 'time')
         <div>
             <input type="{{ $item['input'] }}" name="{{ $item['name'] }}" readonly id="{{ $item['name'] }}"
                 @if ($item['input'] == 'password') autocomplete="on" @else placeholder="{{ $item['alias'] }}" @endif

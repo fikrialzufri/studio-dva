@@ -17,13 +17,15 @@ class CreatePembayaransTable extends Migration
             $table->uuid('id')->primary();
             $table->string('no_pembayaran');
             $table->bigInteger('total_bayar')->default(0);
-            $table->string('bulan')->nullable();
+            $table->integer('bulan')->nullable();
             $table->string('bukti_bayar')->nullable();
             $table->enum('aktif', [
                 'aktif',
                 'non-aktif',
             ])->default('non-aktif');
             $table->foreignUuid('anggota_id')->nullable()->references('id')->on('anggota')->onDelete('cascade');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

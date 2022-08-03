@@ -5,10 +5,12 @@ namespace App\Models;
 use App\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Pembayaran extends Model
 {
-    use HasFactory, UsesUuid;
+    use HasFactory, UsesUuid, SoftDeletes;
     protected $table = "pembayaran";
 
 
@@ -22,6 +24,12 @@ class Pembayaran extends Model
     {
         if ($this->created_at) {
             return tanggal_indonesia($this->created_at);
+        }
+    }
+    public function getBulanTampilAttribute()
+    {
+        if ($this->bulan) {
+            return  bulan_indonesia(Carbon::create()->addMonths($this->bulan - 1)->year(date('Y')));
         }
     }
 

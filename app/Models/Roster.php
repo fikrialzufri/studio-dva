@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UsesUuid;
 use Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Roster extends Model
 {

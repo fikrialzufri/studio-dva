@@ -18,6 +18,8 @@ class CreatePendaftaransTable extends Migration
             $table->string('no_pendaftaran');
             $table->string('slug');
             $table->foreignUuid('anggota_id')->references('id')->on('anggota')->onDelete('cascade');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

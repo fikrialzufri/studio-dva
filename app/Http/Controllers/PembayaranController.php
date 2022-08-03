@@ -40,7 +40,7 @@ class PembayaranController extends Controller
                 'alias'    => 'Total Bayar',
             ],
             [
-                'name'    => 'bulan',
+                'name'    => 'bulan_tampil',
                 'alias'    => 'Bulan Iuran',
             ],
             [
@@ -57,8 +57,11 @@ class PembayaranController extends Controller
     {
         $month = [];
 
-        for ($m = 1; $m <= 12; $m++) {
-            $month[] = bulan_indonesia(date('Y-m-d', mktime(0, 0, 0, $m, 1, date('Y'))));
+        for ($m = 0; $m <= 11; $m++) {
+            $month[$m] = [
+                "id" => $m + 1,
+                "value" => bulan_indonesia(Carbon::create()->addMonths($m + 1)->year(date('Y')))
+            ];
         }
         if (!auth()->user()->hasRole('anggota')) {
             return [
@@ -98,12 +101,17 @@ class PembayaranController extends Controller
             ];
         }
     }
+
+
     public function configForm()
     {
         $month = [];
 
-        for ($m = 1; $m <= 12; $m++) {
-            $month[] = bulan_indonesia(date('Y-m-d', mktime(0, 0, 0, $m, 1, date('Y'))));
+        for ($m = 0; $m <= 11; $m++) {
+            $month[$m] = [
+                "id" => $m + 1,
+                "value" => bulan_indonesia(Carbon::create()->addMonths($m)->year(date('Y')))
+            ];
         }
 
         if (!auth()->user()->hasRole('anggota')) {
@@ -212,6 +220,7 @@ class PembayaranController extends Controller
         return new Pembayaran();
     }
 
+
     public function index()
     {
         //nama title
@@ -220,6 +229,8 @@ class PembayaranController extends Controller
         } else {
             $title =  ucwords($this->title);
         }
+
+
 
         //nama route
         $route =  $this->route;
@@ -384,7 +395,6 @@ class PembayaranController extends Controller
             'same' => 'Password dan konfirmasi password harus sama',
         ];
 
-
         $status = 'non-aktif';
         if (!auth()->user()->hasRole('anggota')) {
 
@@ -403,8 +413,15 @@ class PembayaranController extends Controller
             $anggota_id = auth()->user()->id_anggota;
         }
 
-        $total_bayar = str_replace(".", "", $request->total_bayar);
+        // request bulan lebih kecil dari bulan sebelumnya di anggota pembayarann makann error
         $bulan = $request->bulan;
+        $checkbulan = $this->model()->where('anggota_id', $anggota_id)->where('bulan', '<', $bulan)->first();
+
+        if (!isset($checkbulan)) {
+            return redirect()->route('pembayaran.index')->with('message', ' tidak boleh membayaran di bulan sebelumnya')->with('Class', 'danger');
+        }
+
+        $total_bayar = str_replace(".", "", $request->total_bayar);
         $bukti_bayar = $request->bukti_bayar;
         if ($total_bayar  < 130000 || $total_bayar  > 130000) {
             return redirect()->back()->with('message', 'Maaf pembayaran anda kurang')->with('Class', 'danger');;
@@ -456,7 +473,7 @@ class PembayaranController extends Controller
             $pembayaran->anggota_id =  $anggota_id;
             $pembayaran->aktif  =  $status;
             $pembayaran->save();
-            return redirect()->route('pembayaran.index')->with('message', 'Pembayaran iuran berhasil');
+            return redirect()->route('pembayaran.index')->with('message', 'Pembayaran iuran berhasil')->with('Class', 'success');
         } else {
             return redirect()->route('pembayaran.index')->with('message', 'ada sudah membayaran iuran')->with('Class', 'danger');;
         }
